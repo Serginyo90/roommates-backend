@@ -4,6 +4,6 @@ export interface User {
   email: string;
   phone: string;
   phoneCode: string;
-  isActive: boolean;
+  isActivated: boolean;
   isBlocked: boolean;
 }
