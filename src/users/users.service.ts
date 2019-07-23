@@ -10,7 +10,11 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
   ) {}
-  private readonly users: User[] = [];
+  // @TODO: Serginyo90 remove hardcoded
+  private readonly users: any[] = [{
+    email: 'Serginyo90@mail.ru',
+    password: '123',
+  }];
 
   create(user: User) {
     this.users.push(user);
@@ -18,5 +22,9 @@ export class UsersService {
 
   findAll(): User[] {
     return this.users;
+  }
+
+  async findOne(email: string): Promise<User | undefined> {
+    return this.users.find(user => user.email === email);
   }
 }
