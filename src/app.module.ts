@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
 
@@ -18,7 +18,7 @@ import { UsersModule } from './users/users.module';
       database: 'cuw_dev',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }), UsersModule,
+    }), UsersModule, AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
