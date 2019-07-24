@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from './config/config.module';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
 
@@ -18,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
       database: 'cuw_dev',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }), UsersModule, AuthModule,
+    }), UsersModule, AuthModule, ConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],
