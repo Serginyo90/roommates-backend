@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from './config/config.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
+import { CoreModule } from './core/core.module';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
 
@@ -22,7 +23,7 @@ import { MessagesModule } from './messages/messages.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
       synchronize: true,
-    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule,
+    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
