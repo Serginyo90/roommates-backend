@@ -1,6 +1,23 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
-@Entity()
+import { Conversation } from '../conversations/conversation.entity';
+import { Message } from '../messages/message.entity';
+
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -28,4 +45,37 @@ export class User {
 
   @Column()
   isBlocked: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
+
+  @OneToMany(() => Conversation, conversation => conversation.creator)
+  conversationsOwner: Conversation[];
+
+  @OneToMany(() => Message, message => message.user)
+  messages: Message[];
+
+  @ManyToMany(() => Conversation, conversation => conversation.user)
+  @JoinTable({
+    name: 'users_conversations',
+    joinColumn: {
+      name: 'conversations',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'users',
+      referencedColumnName: 'id',
+    },
+  })
+  conversations: Conversation[];
+
+  @CreateDateColumn({ type: 'datetime'})
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'datetime'})
+  updatedAt: string;
 }
