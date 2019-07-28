@@ -30,7 +30,7 @@ export class Conversation {
   creator: User;
 
   @ManyToMany(() => User, user => user.conversations)
-  user: User[];
+  users: User[];
 
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
