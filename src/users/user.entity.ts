@@ -59,7 +59,7 @@ export class User {
   @OneToMany(() => Message, message => message.user)
   messages: Message[];
 
-  @ManyToMany(() => Conversation, conversation => conversation.user)
+  @ManyToMany(() => Conversation, conversation => conversation.users)
   @JoinTable({
     name: 'users_conversations',
     joinColumn: {
