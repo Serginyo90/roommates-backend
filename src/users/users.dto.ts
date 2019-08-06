@@ -19,3 +19,11 @@ export class CreateUserDto {
   readonly createdAt: string;
   readonly updatedAt: string;
 }
+
+export class RegistrationUserDto {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly password: string;
+  readonly email: string;
+  readonly allowExtraEmails: boolean;
+}
