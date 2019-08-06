@@ -13,9 +13,10 @@ export class UsersService {
     private readonly cryptoService: CryptoService,
   ) {}
 
-  async create(user: User) {
+  async create(user): Promise<User> {
     user.password = await this.cryptoService.hash(user.password);
-    return getRepository(User).save(user);
+    const { password, ...res } = await getRepository(User).save(user);
+    return res;
   }
 
   findAll() {

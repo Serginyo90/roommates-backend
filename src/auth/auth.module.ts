@@ -15,7 +15,7 @@ import { CoreModule } from '../core/core.module';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '6000s' },
+      signOptions: { expiresIn: '60000s' },
     }),
     CoreModule,
   ],

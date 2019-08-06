@@ -31,19 +31,31 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   email: string;
 
-  @Column('varchar', { length: 50 })
+  @Column('varchar', {
+    length: 50,
+    nullable: true,
+  })
   phone: string;
 
-  @Column('varchar', { length: 10 })
+  @Column('varchar', {
+    length: 10,
+    nullable: true,
+  })
   phoneCode: string;
 
-  @Column()
+  @Column({
+    default: false,
+  })
   isActivated: boolean;
 
-  @Column()
+  @Column({
+    default: false,
+  })
   isBlocked: boolean;
 
   @Column({
@@ -72,6 +84,11 @@ export class User {
     },
   })
   conversations: Conversation[];
+
+  @Column({
+    default: false,
+  })
+  allowExtraEmails: string;
 
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
