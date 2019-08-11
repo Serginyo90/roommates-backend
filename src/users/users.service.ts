@@ -26,4 +26,9 @@ export class UsersService {
   findOne(email: string): Promise<User | undefined> {
     return getRepository(User).findOne({ email });
   }
+
+  updateOne(user) {
+    delete user.password;
+    return this.usersRepository.update({ email: user.email }, { ...user });
+  }
 }
