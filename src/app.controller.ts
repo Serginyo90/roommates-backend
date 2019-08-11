@@ -5,7 +5,7 @@ import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';
 import { RegistrationUserDto } from './users/users.dto';
 
-@Controller('api')
+@Controller()
 export class AppController {
   constructor(
     private readonly authService: AuthService,
@@ -16,12 +16,6 @@ export class AppController {
   @Post('login')
   async login(@Request() req) {
     return this.authService.login(req.user);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('me')
-  async getProfile(@Request() req) {
-    return req.user;
   }
 
   @Post('registration')

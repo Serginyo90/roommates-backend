@@ -9,6 +9,7 @@ import { ConfigModule } from './config/config.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
 import { CoreModule } from './core/core.module';
+import { MeModule } from './me/me.module';
 import HttpExceptionFilter from './helpers/filters/http-exception.filter';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
@@ -25,7 +26,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
       synchronize: true,
-    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule,
+    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule, MeModule,
   ],
   controllers: [AppController],
   providers: [AppService, {
