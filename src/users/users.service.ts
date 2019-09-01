@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
+import { Repository, getRepository, Not } from 'typeorm';
 
 import { User } from './user.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
@@ -19,8 +19,8 @@ export class UsersService {
     return res;
   }
 
-  findAll() {
-    return getRepository(User).find();
+  findAll(userId) {
+    return this.usersRepository.find({ id: Not(userId) });
   }
 
   findOne(email: string): Promise<User | undefined> {

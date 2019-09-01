@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Request, Param, ParseIntPipe, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-import { CreateConversationDto } from './conversations.dto';
+import { CreateConversationDto, SendMessageDto } from './conversations.dto';
 import { ConversationsService } from './conversations.service';
 import { Conversation } from './conversation.entity';
 import { RolesGuard } from '../helpers/guards/roles.guard';
@@ -16,7 +16,17 @@ export class ConversationsController {
   }
 
   @Get()
-  async findAll(): Promise<Conversation[]> {
-    return this.conversationsService.findAll();
+  findAll(@Request() req): Promise<Conversation[]> {
+    return this.conversationsService.findAll(req.user.id);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post(':companionId')
+  async sendMessage(
+    @Request() req,
+    @Body() sendMessageDto: SendMessageDto,
+    @Param('companionId', new ParseIntPipe()) companionId: number,
+  ) {
+    return await this.conversationsService.sendMessage(req.user, sendMessageDto.message, companionId);
   }
 }

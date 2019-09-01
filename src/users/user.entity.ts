@@ -8,6 +8,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
@@ -32,6 +33,7 @@ export class User {
   })
   lastName: string;
 
+  @Exclude()
   @Column()
   password: string;
 
@@ -84,11 +86,11 @@ export class User {
   @JoinTable({
     name: 'users_conversations',
     joinColumn: {
-      name: 'conversations',
+      name: 'users',
       referencedColumnName: 'id',
     },
     inverseJoinColumn: {
-      name: 'users',
+      name: 'conversations',
       referencedColumnName: 'id',
     },
   })
