@@ -23,13 +23,13 @@ export class Conversation {
   @Column()
   channelId: string;
 
-  @OneToMany(() => Message, message => message.conversation)
+  @OneToMany(() => Message, message => message.conversation, { cascade: true })
   messages: Message[];
 
-  @ManyToOne(() => User, user => user.conversationsOwner)
+  @ManyToOne(() => User, user => user.conversationsOwner, { nullable: false })
   creator: User;
 
-  @ManyToMany(() => User, user => user.conversations)
+  @ManyToMany(() => User, user => user.conversations, { nullable: false })
   users: User[];
 
   @CreateDateColumn({ type: 'datetime'})

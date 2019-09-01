@@ -18,10 +18,10 @@ export class Message {
   @Column()
   text: string;
 
-  @ManyToOne(() => User, user => user.messages)
+  @ManyToOne(() => User, user => user.messages, { nullable: false })
   user: User;
 
-  @ManyToOne(() => Conversation, conversation => conversation.messages)
+  @ManyToOne(() => Conversation, conversation => conversation.messages, { nullable: false   })
   conversation: Conversation;
 
   @CreateDateColumn({ type: 'datetime'})

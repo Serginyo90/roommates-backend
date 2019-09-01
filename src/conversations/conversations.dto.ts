@@ -11,3 +11,7 @@ export class CreateConversationDto {
   readonly createdAt: string;
   readonly updatedAt: string;
 }
+
+export class SendMessageDto {
+  readonly message: string;
+}
