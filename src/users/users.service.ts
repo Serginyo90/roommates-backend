@@ -27,8 +27,13 @@ export class UsersService {
     return getRepository(User).findOne({ email });
   }
 
-  updateOne(user) {
+  async updateOne(user) {
     delete user.password;
-    return this.usersRepository.update({ email: user.email }, { ...user });
+    try {
+      await this.usersRepository.update({ email: user.email }, { ...user });
+    } catch (e) {
+      throw e;
+    }
+    return { ...user };
   }
 }

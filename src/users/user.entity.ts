@@ -33,6 +33,11 @@ export class User {
   })
   lastName: string;
 
+  @Column({
+    nullable: true,
+  })
+  description: string;
+
   @Exclude()
   @Column()
   password: string;
