@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Put, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { UpdateProfileDto } from './me.dto';
@@ -18,7 +18,7 @@ export class MeController {
     return this.usersService.findOne(req.user.email);
   }
 
-  @Post()
+  @Put()
   async updateProfile(@Body() updateProfileDto: UpdateProfileDto) {
     return this.meService.updateProfile(updateProfileDto);
   }
