@@ -10,6 +10,7 @@ import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
 import { CoreModule } from './core/core.module';
 import { MeModule } from './me/me.module';
+import { HobbiesModule } from './hobbies/hobbies.module';
 import HttpExceptionFilter from './helpers/filters/http-exception.filter';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
@@ -23,10 +24,11 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
       username: 'root',
       password: 'password',
       database: 'cuw_dev',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [__dirname + '**/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
       synchronize: true,
-    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule, MeModule,
+      logging: true,
+    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule,
   ],
   controllers: [AppController],
   providers: [AppService, {
