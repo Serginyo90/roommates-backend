@@ -12,6 +12,7 @@ import { Exclude } from 'class-transformer';
 
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
+import { Hobby } from '../hobbies/hobby.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -91,7 +92,7 @@ export class User {
   @JoinTable({
     name: 'users_conversations',
     joinColumn: {
-      name: 'users',
+      name: 'userId',
       referencedColumnName: 'id',
     },
     inverseJoinColumn: {
@@ -100,6 +101,20 @@ export class User {
     },
   })
   conversations: Conversation[];
+
+  @ManyToMany(() => Hobby, hobby => hobby.users)
+  @JoinTable({
+    name: 'users_hobbies',
+    joinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'hobbyId',
+      referencedColumnName: 'id',
+    },
+  })
+  hobbies: Hobby[];
 
   @Column({
     default: false,
