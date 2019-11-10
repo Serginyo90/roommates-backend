@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository, Not } from 'typeorm';
 
 import { User } from './user.entity';
+import { Hobby } from '../hobbies/hobby.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
 
 @Injectable()
@@ -10,6 +11,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    @InjectRepository(Hobby)
+    private readonly hobbiesRepository: Repository<Hobby>,
     private readonly cryptoService: CryptoService,
   ) {}
 
@@ -20,17 +23,20 @@ export class UsersService {
   }
 
   findAll(userId) {
-    return this.usersRepository.find({ id: Not(userId) });
+    return this.usersRepository.find({ where: { id: Not(userId) }, relations: ['hobbies'] });
   }
 
   findOne(email: string): Promise<User | undefined> {
-    return getRepository(User).findOne({ email });
+    return getRepository(User).findOne({ email }, { relations: ['hobbies']});
   }
 
-  async updateOne(user) {
-    delete user.password;
+  async updateOne({ password, ...user}) {
+    const userEntity = await this.usersRepository.findOne(user.id);
+    if (user.hobbies.length) {
+      user.hobbies = await this.hobbiesRepository.findByIds(user.hobbies);
+    }
     try {
-      await this.usersRepository.update({ email: user.email }, { ...user });
+      await this.usersRepository.save({ ...userEntity, ...user });
     } catch (e) {
       throw e;
     }
