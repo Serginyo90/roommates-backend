@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
+
+import { UpdateProfileDto } from './me.dto';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class MeService {
@@ -7,7 +10,10 @@ export class MeService {
     private readonly usersService: UsersService,
   ) {}
 
-  updateProfile(data): any {
+  updateProfile(requestUser: User, data: UpdateProfileDto): any {
+    if (requestUser.email !== data.email) {
+      throw new ForbiddenException('You can\'t modify this user');
+    }
     return this.usersService.updateOne(data);
   }
 }

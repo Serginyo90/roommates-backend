@@ -3,6 +3,8 @@ export class UpdateProfileDto {
   readonly lastName: string;
   readonly email: string;
   readonly password: string;
+  readonly description: string;
   readonly phoneCode: string;
   readonly phone: string;
+  readonly hobbies: [];
 }
