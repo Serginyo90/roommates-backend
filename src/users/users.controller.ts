@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { UsersService } from './users.service';
@@ -19,6 +19,7 @@ export class UsersController {
     this.usersService.create(createUserDto);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async findAll(@Request() req): Promise<User[]> {
     return await this.usersService.findAll(req.user.id);
