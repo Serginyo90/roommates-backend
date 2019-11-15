@@ -42,4 +42,9 @@ export class UsersService {
     }
     return { ...user };
   }
+
+  async updatePassword(user, newPassword) {
+    user.password = await this.cryptoService.hash(newPassword);
+    return this.usersRepository.save(user);
+  }
 }

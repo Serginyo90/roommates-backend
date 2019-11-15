@@ -8,3 +8,9 @@ export class UpdateProfileDto {
   readonly phone: string;
   readonly hobbies: [];
 }
+
+export interface UpdatePasswordDto {
+  readonly oldPassword: string;
+  readonly newPassword: string;
+  readonly confirmPassword: string;
+}
