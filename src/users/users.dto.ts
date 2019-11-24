@@ -1,6 +1,7 @@
 import { UserRole } from './user.entity';
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
+import { SearchByDto } from './users.interface';
 
 export class CreateUserDto {
   readonly id: number;
@@ -26,4 +27,9 @@ export class RegistrationUserDto {
   readonly password: string;
   readonly email: string;
   readonly allowExtraEmails: boolean;
+}
+
+export class FetchUsersDto {
+  readonly userId: string;
+  readonly searchBy: SearchByDto;
 }

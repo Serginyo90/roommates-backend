@@ -7,3 +7,9 @@ export interface User {
   isActivated: boolean;
   isBlocked: boolean;
 }
+
+export interface SearchByDto {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly email: string;
+}

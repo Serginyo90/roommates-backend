@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, Not } from 'typeorm';
+import { Repository, getRepository, Not, Like } from 'typeorm';
 
 import { User } from './user.entity';
 import { Hobby } from '../hobbies/hobby.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
+import { FetchUsersDto } from './users.dto';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,16 @@ export class UsersService {
     return res;
   }
 
-  findAll(userId) {
+  findAll(fetchUsersDto: FetchUsersDto) {
+    const { userId, searchBy: { firstName, lastName, email } } = fetchUsersDto;
+    if (firstName || lastName || email) {
+      return this.usersRepository.find({ where: {
+        id: Not(userId),
+        firstName: firstName ? Like(`%${firstName}%`) : Not(''),
+        lastName: lastName ? Like(`%${lastName}%`) : Not(''),
+        email: email ? Like(`%${email}%`) : Not(''),
+      }, relations: ['hobbies'] });
+    }
     return this.usersRepository.find({ where: { id: Not(userId) }, relations: ['hobbies'] });
   }
 

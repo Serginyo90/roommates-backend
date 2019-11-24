@@ -35,6 +35,7 @@ export class User {
   lastName: string;
 
   @Column({
+    length: 510,
     nullable: true,
   })
   description: string;
