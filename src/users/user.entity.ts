@@ -66,6 +66,21 @@ export class User {
   })
   phoneCode: string;
 
+  @Column('varchar', {
+    nullable: true,
+  })
+  country: string;
+
+  @Column('varchar', {
+    nullable: true,
+  })
+  city: string;
+
+  @Column('varchar', {
+    nullable: true,
+  })
+  state: string;
+
   @Column({
     default: false,
   })
