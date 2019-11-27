@@ -12,12 +12,21 @@ export default class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    // @ts-ignore
+    let message = exception.message;
+    if (status === HttpStatus.UNAUTHORIZED) {
+      message = {
+        message: 'Your token is expired. Please login again',
+        // @ts-ignore
+        ...exception.message,
+      };
+    }
+
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      // @ts-ignore
-      message: exception.message,
+      message,
     });
   }
 }
