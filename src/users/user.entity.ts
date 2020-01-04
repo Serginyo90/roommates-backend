@@ -7,12 +7,17 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
 import { Hobby } from '../hobbies/hobby.entity';
+import { Country } from '../countries/country.entity';
+import { State } from '../countries/states/state.entity';
+import { City } from '../countries/states/cities/city.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -66,20 +71,17 @@ export class User {
   })
   phoneCode: string;
 
-  @Column('varchar', {
-    nullable: true,
-  })
-  country: string;
+  @OneToOne(() => Country, { nullable: true })
+  @JoinColumn()
+  country: Country;
 
-  @Column('varchar', {
-    nullable: true,
-  })
-  city: string;
+  @OneToOne(() => City, { nullable: true })
+  @JoinColumn()
+  city: City;
 
-  @Column('varchar', {
-    nullable: true,
-  })
-  state: string;
+  @OneToOne(() => State, { nullable: true })
+  @JoinColumn()
+  state: State;
 
   @Column({
     default: false,
