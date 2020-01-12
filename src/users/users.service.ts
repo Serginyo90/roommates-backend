@@ -31,9 +31,9 @@ export class UsersService {
         firstName: firstName ? Like(`%${firstName}%`) : Not(''),
         lastName: lastName ? Like(`%${lastName}%`) : Not(''),
         email: email ? Like(`%${email}%`) : Not(''),
-      }, relations: ['hobbies'] });
+      }, relations: ['hobbies', 'country', 'state', 'city'] });
     }
-    return this.usersRepository.find({ where: { id: Not(userId) }, relations: ['hobbies'] });
+    return this.usersRepository.find({ where: { id: Not(userId) }, relations: ['hobbies', 'country', 'state', 'city'] });
   }
 
   findOne(email: string): Promise<User | undefined> {
