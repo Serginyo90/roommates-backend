@@ -10,6 +10,7 @@ import {
 
 import { Country } from '../country.entity';
 import { City } from './cities/city.entity';
+import { User } from '../../users/user.entity';
 
 @Entity('states')
 export class State {
@@ -24,6 +25,10 @@ export class State {
 
   @OneToMany(() => City, city => city.state, { nullable: true })
   cities: City[];
+
+  @OneToMany(() => User, user => user.state, {
+    nullable: true })
+  users: User[];
 
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;

@@ -3,10 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, OneToMany,
+  UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { State } from './states/state.entity';
 import { City } from './states/cities/city.entity';
+import { User } from '../users/user.entity';
 
 @Entity('countries')
 export class Country {
@@ -52,6 +54,10 @@ export class Country {
 
   @OneToMany(() => City, city => city.country, { nullable: true })
   cities: City[];
+
+  @OneToMany(() => User, user => user.country, {
+  nullable: true })
+  users: User[];
 
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
