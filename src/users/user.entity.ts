@@ -7,8 +7,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
-  OneToOne,
-  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -22,6 +21,12 @@ import { City } from '../countries/states/cities/city.entity';
 export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
+}
+
+export enum UserGender {
+  MALE = 'male',
+  FEMALE = 'female',
+  CUSTOM = 'custom',
 }
 
 @Entity('users')
@@ -71,17 +76,14 @@ export class User {
   })
   phoneCode: string;
 
-  @OneToOne(() => Country, { nullable: true })
-  @JoinColumn()
+  @ManyToOne(() => Country, { nullable: true })
   country: Country;
 
-  @OneToOne(() => City, { nullable: true })
-  @JoinColumn()
-  city: City;
-
-  @OneToOne(() => State, { nullable: true })
-  @JoinColumn()
+  @ManyToOne(() => State, { nullable: true })
   state: State;
+
+  @ManyToOne(() => City, { nullable: true })
+  city: City;
 
   @Column({
     default: false,
@@ -94,11 +96,18 @@ export class User {
   isBlocked: boolean;
 
   @Column({
-    type: 'enum',
+    type: 'set',
     enum: UserRole,
-    default: UserRole.USER,
+    default: [UserRole.USER],
   })
-  role: UserRole;
+  roles: UserRole[];
+
+  @Column({
+    type: 'enum',
+    enum: UserGender,
+    default: UserGender.MALE,
+  })
+  gender: UserGender;
 
   @OneToMany(() => Conversation, conversation => conversation.creator)
   conversationsOwner: Conversation[];

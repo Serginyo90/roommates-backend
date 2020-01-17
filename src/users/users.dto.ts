@@ -1,4 +1,4 @@
-import { UserRole } from './user.entity';
+import { UserRole, UserGender } from './user.entity';
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
 import { SearchByDto } from './users.interface';
@@ -13,7 +13,8 @@ export class CreateUserDto {
   readonly phoneCode: string;
   readonly isActivated: boolean;
   readonly isBlocked: boolean;
-  readonly role: UserRole;
+  readonly roles: UserRole[];
+  readonly gender: UserGender;
   readonly conversations: Conversation[];
   readonly conversationsOwner: Conversation[];
   readonly messages: Message[];

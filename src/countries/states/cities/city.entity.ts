@@ -4,11 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
+  ManyToOne, OneToMany,
 } from 'typeorm';
 
 import { State } from '../state.entity';
 import { Country } from '../../country.entity';
+import { User } from '../../../users/user.entity';
 
 @Entity('cities')
 export class City {
@@ -23,6 +24,9 @@ export class City {
 
   @ManyToOne(() => Country, { nullable: false })
   country: Country;
+
+  @OneToMany(() => User, user => user.city, { nullable: true })
+  users: User[];
 
   @Column({
     type: 'decimal',
