@@ -1,11 +1,13 @@
+import * as Joi from '@hapi/joi';
+
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from './config/config.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { MessagesModule } from './messages/messages.module';
 import { CoreModule } from './core/core.module';
@@ -18,18 +20,35 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+      validationSchema: Joi.object({
+        NODE_ENV: Joi.string()
+          .valid('development', 'production', 'staging')
+          .default('development'),
+        PORT: Joi.number().default(3000),
+        DATABASE_HOST: Joi.string().required(),
+        DATABASE_PORT: Joi.number().default(3306),
+        DATABASE_USERNAME: Joi.string().required(),
+        DATABASE_PASSWORD: Joi.string().required(),
+        validationOptions: {
+          allowUnknown: false,
+          abortEarly: true,
+        },
+      }),
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'password',
-      database: 'cuw_dev',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT, 10),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
       entities: [__dirname + '**/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
       synchronize: true,
       logging: true,
-    }), UsersModule, AuthModule, ConfigModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule,
+    }), UsersModule, AuthModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule,
   ],
   controllers: [AppController],
   providers: [AppService, {
