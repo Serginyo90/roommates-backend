@@ -4,7 +4,7 @@
   "port": 3306,
   "username": "root",
   "password": "password",
-  "database": "cuw_dev",
+  "database": "roommates_dev",
   "entities": ["dist/src/**/*.entity{.js, .ts}"],
   "migrations": ["dist/migrations/*{.js, .ts}"],
   "synchronize": true,
