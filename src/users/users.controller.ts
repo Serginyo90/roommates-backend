@@ -2,29 +2,42 @@ import { Controller, Get, Post, Body, UseGuards, Request, UseInterceptors, Class
 import { AuthGuard } from '@nestjs/passport';
 
 import { UsersService } from './users.service';
-import { CreateUserDto } from './users.dto';
+import { ConfirmDto, CreateUserDto, RegistrationUserDto } from './users.dto';
 import { User, SearchByDto } from './users.interface';
 import { Role } from '../helpers/decorators/role.decorator';
 import { RolesGuard } from '../helpers/guards/roles.guard';
 
 @Controller('users')
-@UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Role('admin')
   async create(@Body() createUserDto: CreateUserDto) {
     this.usersService.create(createUserDto);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
   async findAll(
     @Request() req,
     @Query() searchByDto: SearchByDto,
   ): Promise<User[]> {
     return await this.usersService.findAll({ userId: req.user.id, searchBy: searchByDto });
+  }
+
+  @Post('registration')
+  async registration(@Body() registrationUserDto: RegistrationUserDto) {
+    return this.usersService.registration(registrationUserDto);
+  }
+
+  @Get('confirm')
+  async confirm(
+    @Query() confirmDto: ConfirmDto,
+  ) {
+    console.log('__confirmDto__', { confirmDto });
+    return await this.usersService.confirm(confirmDto);
   }
 }

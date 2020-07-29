@@ -96,6 +96,11 @@ export class User {
   isBlocked: boolean;
 
   @Column({
+    default: false,
+  })
+  isEmailConfirmed: boolean;
+
+  @Column({
     type: 'set',
     enum: UserRole,
     default: [UserRole.USER],

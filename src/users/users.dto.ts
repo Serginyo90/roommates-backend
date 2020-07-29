@@ -1,3 +1,5 @@
+import { IsString } from 'class-validator';
+
 import { UserRole, UserGender } from './user.entity';
 import { Conversation } from '../conversations/conversation.entity';
 import { Message } from '../messages/message.entity';
@@ -25,7 +27,7 @@ export class CreateUserDto {
 export class RegistrationUserDto {
   readonly firstName: string;
   readonly lastName: string;
-  readonly password: string;
+  password: string;
   readonly email: string;
   readonly allowExtraEmails: boolean;
 }
@@ -33,4 +35,9 @@ export class RegistrationUserDto {
 export class FetchUsersDto {
   readonly userId: string;
   readonly searchBy: SearchByDto;
+}
+
+export class ConfirmDto {
+  @IsString()
+  readonly email: string;
 }

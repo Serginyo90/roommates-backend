@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository, Not, Like } from 'typeorm';
 
 import { User } from './user.entity';
 import { Hobby } from '../hobbies/hobby.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
-import { FetchUsersDto } from './users.dto';
+import { ConfirmDto, FetchUsersDto } from './users.dto';
+import { SesService } from '../core/aws/ses.service';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,7 @@ export class UsersService {
     @InjectRepository(Hobby)
     private readonly hobbiesRepository: Repository<Hobby>,
     private readonly cryptoService: CryptoService,
+    @Inject(SesService) private readonly sesService: SesService,
   ) {}
 
   async create(user): Promise<User> {
@@ -56,5 +58,27 @@ export class UsersService {
   async updatePassword(user, newPassword) {
     user.password = await this.cryptoService.hash(newPassword);
     return this.usersRepository.save(user);
+  }
+
+  async registration(user) {
+    // send confirm email
+    const sesRes = await this.sesService.sendEmail(user.email);
+    console.log('__sesRes__', { sesRes });
+    if (sesRes && sesRes.MessageId) {
+      user.password = await this.cryptoService.hash(user.password);
+      const { password, ...res } = await getRepository(User).save(user);
+      return res;
+    }
+  }
+
+  async confirm(confirmDto: ConfirmDto) {
+    const user = await this.findOne(confirmDto.email);
+    console.log('__user__', { user });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.isEmailConfirmed = true;
+    await this.usersRepository.save(user);
+    return true;
   }
 }

@@ -21,6 +21,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
@@ -35,6 +36,9 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
           allowUnknown: false,
           abortEarly: true,
         },
+        AWS_ACCESS_KEY_ID: Joi.string().required(),
+        AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+        MAIN_ENDPOINT: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
