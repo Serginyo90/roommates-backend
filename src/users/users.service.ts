@@ -6,7 +6,7 @@ import { User } from './user.entity';
 import { Hobby } from '../hobbies/hobby.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
 import { ConfirmDto, FetchUsersDto } from './users.dto';
-import { SesService } from '../core/aws/ses.service';
+import { SendgridService } from '../core/sendgrid/sendgrid.service';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +16,7 @@ export class UsersService {
     @InjectRepository(Hobby)
     private readonly hobbiesRepository: Repository<Hobby>,
     private readonly cryptoService: CryptoService,
-    @Inject(SesService) private readonly sesService: SesService,
+    private readonly sendgridService: SendgridService,
   ) {}
 
   async create(user): Promise<User> {
@@ -62,9 +62,8 @@ export class UsersService {
 
   async registration(user) {
     // send confirm email
-    const sesRes = await this.sesService.sendEmail(user.email);
-    console.log('__sesRes__', { sesRes });
-    if (sesRes && sesRes.MessageId) {
+    const isWasSent = await this.sendgridService.sendConfirmEmail(user.email);
+    if (isWasSent) {
       user.password = await this.cryptoService.hash(user.password);
       const { password, ...res } = await getRepository(User).save(user);
       return res;

@@ -39,6 +39,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
         AWS_ACCESS_KEY_ID: Joi.string().required(),
         AWS_SECRET_ACCESS_KEY: Joi.string().required(),
         DOMAIN: Joi.string().required(),
+        SENDGRID_API_KEY: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
