@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 import { UserRole, UserGender } from './user.entity';
 import { Conversation } from '../conversations/conversation.entity';
@@ -39,5 +39,6 @@ export class FetchUsersDto {
 
 export class ConfirmDto {
   @IsString()
+  @IsEmail()
   readonly email: string;
 }

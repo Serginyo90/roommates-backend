@@ -33,11 +33,8 @@ export class UsersController {
     return this.usersService.registration(registrationUserDto);
   }
 
-  @Get('confirm')
-  async confirm(
-    @Query() confirmDto: ConfirmDto,
-  ) {
-    console.log('__confirmDto__', { confirmDto });
+  @Post('confirm')
+  async confirm(@Body() confirmDto: ConfirmDto) {
     return await this.usersService.confirm(confirmDto);
   }
 }

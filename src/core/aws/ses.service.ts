@@ -61,7 +61,7 @@ export class SesService {
         },
         Body: {
           Text: {
-            Data: `Welcome to FindMyRoommates. Please don\'t respond on this email. Please confirm your email by clicking on ${this.configService.get('MAIN_ENDPOINT')}/users/confirm?email=${encodeURIComponent(email)}`,
+            Data: `Welcome to FindMyRoommates. Please don\'t respond on this email. Please confirm your email by clicking on ${this.configService.get('DOMAIN')}/confirm?email=${encodeURIComponent(email)}`,
           },
         },
       },

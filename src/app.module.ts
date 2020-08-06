@@ -38,7 +38,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
         },
         AWS_ACCESS_KEY_ID: Joi.string().required(),
         AWS_SECRET_ACCESS_KEY: Joi.string().required(),
-        MAIN_ENDPOINT: Joi.string().required(),
+        DOMAIN: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
