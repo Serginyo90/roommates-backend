@@ -12,6 +12,6 @@ export class CitiesService {
   ) {}
 
   async getByStateId(stateId): Promise<City[]> {
-    return this.citiesRepository.find({ where: { state: stateId }});
+    return this.citiesRepository.find({ where: { state: stateId, isActive: true }, order: { name: 'ASC' }});
   }
 }

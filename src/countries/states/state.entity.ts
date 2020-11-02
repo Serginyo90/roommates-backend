@@ -20,6 +20,11 @@ export class State {
   @Column()
   name: string;
 
+  @Column({
+    default: false,
+  })
+  isActive: boolean;
+
   @ManyToOne(() => Country, { nullable: false })
   country: Country;
 

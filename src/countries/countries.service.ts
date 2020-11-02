@@ -12,6 +12,13 @@ export class CountriesService {
   ) {}
 
   findAll(): Promise<Country[]> {
-    return this.countriesRepository.find();
+    return this.countriesRepository.find({
+      where: {
+        isActive: true,
+      },
+      order: {
+        name: 'ASC',
+      },
+    });
   }
 }

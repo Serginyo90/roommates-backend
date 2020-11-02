@@ -38,6 +38,11 @@ export class City {
   })
   longitude: number;
 
+  @Column({
+    default: false,
+  })
+  isActive: boolean;
+
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
 

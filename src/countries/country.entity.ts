@@ -49,6 +49,11 @@ export class Country {
   })
   currency: string;
 
+  @Column({
+    default: false,
+  })
+  isActive: boolean;
+
   @OneToMany(() => State, state => state.country, { nullable: true })
   states: State[];
 

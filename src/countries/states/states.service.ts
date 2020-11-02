@@ -12,6 +12,6 @@ export class StatesService {
   ) {}
 
   async getByCountryId(countryId): Promise<State[]> {
-    return this.statesRepository.find({ where: { country: countryId }});
+    return this.statesRepository.find({ where: { country: countryId, isActive: true }, order: { name: 'ASC' }});
   }
 }
