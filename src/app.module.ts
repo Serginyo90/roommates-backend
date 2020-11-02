@@ -51,7 +51,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
       database: process.env.DATABASE_NAME,
       entities: [__dirname + '**/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production' ? true : false,
       logging: true,
     }), UsersModule, AuthModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule,
   ],
