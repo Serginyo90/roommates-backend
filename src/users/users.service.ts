@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository, Not, Like } from 'typeorm';
 
@@ -39,7 +39,7 @@ export class UsersService {
   }
 
   findOne(email: string): Promise<User | undefined> {
-    return getRepository(User).findOne({ email }, { relations: ['hobbies']});
+    return getRepository(User).findOne({ email }, { relations: ['hobbies', 'country', 'state', 'city']});
   }
 
   async updateOne({ password, ...user}) {
