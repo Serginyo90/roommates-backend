@@ -7,6 +7,7 @@ import { Hobby } from '../hobbies/hobby.entity';
 import { CryptoService } from '../core/crypto/crypro.service';
 import { ConfirmDto, FetchUsersDto } from './users.dto';
 import { SendgridService } from '../core/sendgrid/sendgrid.service';
+import { BadDataException } from '../helpers/exceptions/bad-data.exception';
 
 @Injectable()
 export class UsersService {
@@ -61,6 +62,14 @@ export class UsersService {
   }
 
   async registration(user) {
+    const userFromDB = await this.usersRepository.findOne({ where: { email: user.email }});
+    if (userFromDB && !userFromDB.isEmailConfirmed) {
+      await this.sendgridService.sendConfirmEmail(user.email);
+      throw new BadDataException('User already registered');
+    }
+    if (userFromDB) {
+      throw new BadDataException('User already exists');
+    }
     // send confirm email
     const isWasSent = await this.sendgridService.sendConfirmEmail(user.email);
     if (isWasSent) {
