@@ -1,8 +1,10 @@
-import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { AuthService } from './auth/auth.service';
+import { SentryInterceptor } from './helpers/interceptors/sentry.interceptor';
 
+@UseInterceptors(SentryInterceptor)
 @Controller()
 export class AppController {
   constructor(
