@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 
 import { UpdateProfileDto, UpdatePasswordDto } from './me.dto';
 import { User } from '../users/user.entity';
+import { PasswordsDontMatch } from '../users/constants';
 
 @Injectable()
 export class MeService {
@@ -25,7 +26,7 @@ export class MeService {
       throw new ForbiddenException('You can\'t modify this user');
     }
     if (data.newPassword !== data.confirmPassword) {
-      throw new ForbiddenException('Passwords must match');
+      throw new ForbiddenException(PasswordsDontMatch);
     }
     return this.usersService.updatePassword(requestUser, data.newPassword);
   }

@@ -42,3 +42,17 @@ export class ConfirmDto {
   @IsEmail()
   readonly email: string;
 }
+
+export class ResetPasswordConfirmDto {
+  @IsString()
+  @IsEmail()
+  readonly password: string;
+
+  @IsString()
+  @IsEmail()
+  readonly passwordConfirm: string;
+
+  @IsString()
+  @IsEmail()
+  readonly token: string;
+}

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, UseGuards, Request, UseInterceptors, ClassSerializerInterceptor, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, UseInterceptors, ClassSerializerInterceptor, Query, Res, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 
 import { UsersService } from './users.service';
-import { ConfirmDto, CreateUserDto, RegistrationUserDto } from './users.dto';
+import { ConfirmDto, CreateUserDto, RegistrationUserDto, ResetPasswordConfirmDto } from './users.dto';
 import { User, SearchByDto } from './users.interface';
 import { Role } from '../helpers/decorators/role.decorator';
 import { RolesGuard } from '../helpers/guards/roles.guard';
@@ -36,5 +37,21 @@ export class UsersController {
   @Post('confirm')
   async confirm(@Body() confirmDto: ConfirmDto) {
     return await this.usersService.confirm(confirmDto);
+  }
+
+  @Post('reset-password')
+  async resetPassword(@Body() confirmDto: ConfirmDto) {
+    const data = await this.usersService.resetPassword(confirmDto);
+    console.log('_resetPassword_data__', data);
+    return data;
+  }
+
+  @Post('reset-password-confirm')
+  async resetPasswordConfirm(
+    @Body() resetPasswordConfirmDto: ResetPasswordConfirmDto,
+    @Res() res: Response,
+  ) {
+    await this.usersService.resetPasswordConfirm(resetPasswordConfirmDto);
+    res.status(HttpStatus.OK).json();
   }
 }
