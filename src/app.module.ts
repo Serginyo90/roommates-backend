@@ -40,6 +40,8 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
         AWS_SECRET_ACCESS_KEY: Joi.string().required(),
         DOMAIN: Joi.string().required(),
         SENDGRID_API_KEY: Joi.string().required(),
+        API: Joi.string().required(),
+        MEDIA_PATH: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
@@ -51,7 +53,7 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
       database: process.env.DATABASE_NAME,
       entities: [__dirname + '**/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
-      synchronize: process.env.NODE_ENV !== 'production' ? true : false,
+      synchronize: process.env.NODE_ENV !== 'production',
       logging: true,
     }), UsersModule, AuthModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule,
   ],
