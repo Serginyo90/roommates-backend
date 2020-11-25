@@ -9,6 +9,7 @@ import {
   HttpStatus,
   Get,
   Param,
+  Render,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
@@ -49,5 +50,11 @@ export class AppController {
   ) {
     const data = await this.appService.getImage(image);
     res.status(HttpStatus.OK).send(data);
+  }
+
+  @Get('/landing')
+  @Render('index')
+  public renderSharePage() {
+    return;
   }
 }
