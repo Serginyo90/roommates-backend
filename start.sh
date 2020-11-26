@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ec2-user/roommates-backend
+cd /root/Projects/roommates-backend
 npm run start:prod
