@@ -14,6 +14,7 @@ import { CoreModule } from './core/core.module';
 import { MeModule } from './me/me.module';
 import { HobbiesModule } from './hobbies/hobbies.module';
 import { CountriesModule } from './countries/countries.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 import HttpExceptionFilter from './helpers/filters/http-exception.filter';
 
 // connection config for db look here ormconfig.json @see https://docs.nestjs.com/techniques/database
@@ -53,9 +54,9 @@ import HttpExceptionFilter from './helpers/filters/http-exception.filter';
       database: process.env.DATABASE_NAME,
       entities: [__dirname + '**/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '../migrations/*{.ts,.js}'],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: false,
       logging: true,
-    }), UsersModule, AuthModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule,
+    }), UsersModule, AuthModule, ConversationsModule, MessagesModule, CoreModule, MeModule, HobbiesModule, CountriesModule, SubscribersModule,
   ],
   controllers: [AppController],
   providers: [AppService, {

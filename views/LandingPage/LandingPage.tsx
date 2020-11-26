@@ -8,13 +8,13 @@ import ProductCTA from './ProductCTA';
 import ProductSmokingHero from './ProductSmokingHero';
 import AppFooter from './AppFooter';
 
-const LandingPage = () => (
+const LandingPage = ({ link }) => (
   <div>
     <ProductHero/>
     <ProductValues/>
     <ProductWhyWe />
     <ProductHowItIsWorks/>
-    <ProductCTA/>
+    <ProductCTA link={link} />
     {false && <ProductSmokingHero/>}
     <AppFooter/>
   </div>

@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Formik, Form, ErrorMessage } from 'formik';
+import axios from 'axios';
+
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -55,16 +58,16 @@ const styles = (theme) => ({
     width: '100%',
     maxWidth: 600,
   },
+  errors: {
+    marginBottom: '16px',
+    marginTop: '-8px',
+  },
 });
 
 function ProductCTA(props) {
   const { classes } = props;
   const [open, setOpen] = React.useState(false);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setOpen(true);
-  };
+  const [isSubmitting, setSubmitting] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -75,18 +78,78 @@ function ProductCTA(props) {
       <Grid container>
         <Grid item xs={12} md={6} className={classes.cardWrapper}>
           <div className={classes.card}>
-            <form onSubmit={handleSubmit} className={classes.cardContent}>
-              <Typography variant='h2' component='h2' gutterBottom>
-                Подписаться
-              </Typography>
-              <Typography variant='h5'>
-                Мы не отсылаем спам. Мы рассылаем подсказки и новые обновления нашего сервиса
-              </Typography>
-              <TextField className={classes.textField} placeholder='Электронная почта' />
-              <Button type='submit' color='primary' variant='contained' className={classes.button}>
-                Держите меня в курсе
-              </Button>
-            </form>
+            <Formik
+              initialValues={{ email: '' }}
+              validate={values => {
+                const errors = {} as any;
+                if (!values.email) {
+                  errors.email = 'Обязательное поле';
+                } else if (
+                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                ) {
+                  errors.email = 'Некорректный формат электронной почты';
+                }
+                return errors;
+              }}
+              onSubmit={(values, { resetForm }) => {
+                setSubmitting(true);
+                axios.post(props.link, {
+                  email: values.email,
+                }, {
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                })
+                  .then((res) => {
+                    setSubmitting(false);
+                    return res.data;
+                  })
+                  .then((data) => {
+                    if (data && !data.errors) {
+                      setOpen(true);
+                      resetForm({ values: { email: '' }});
+                    }
+                  });
+              }}
+            >
+              {({
+                  values,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isValid,
+                }) => (
+                <Form onSubmit={handleSubmit} className={classes.cardContent}>
+                  <Typography variant='h2' component='h2' gutterBottom>
+                    Подписаться
+                  </Typography>
+                  <Typography variant='h5'>
+                    Мы не отсылаем спам.
+                    Мы рассылаем подсказки и новые обновления нашего сервиса
+                  </Typography>
+                  <TextField
+                    className={classes.textField}
+                    placeholder='Электронная почта'
+                    type='email'
+                    name='email'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                  />
+                  <ErrorMessage name='email' component='div' className={classes.errors} />
+                  <Button
+                    type='submit'
+                    color='primary'
+                    variant='contained'
+                    className={classes.button}
+                    disabled={!isValid || isSubmitting}
+                  >
+                    Держите меня в курсе
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </Grid>
         <Grid item xs={12} md={6} className={classes.imagesWrapper}>

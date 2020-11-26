@@ -11,6 +11,7 @@ import {
   Param,
   Render,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
@@ -27,6 +28,7 @@ export class AppController {
   constructor(
     private readonly authService: AuthService,
     private readonly appService: AppService,
+    private readonly configService: ConfigService,
   ) {}
 
   @UseGuards(AuthGuard('local'))
@@ -55,6 +57,6 @@ export class AppController {
   @Get('/landing')
   @Render('index')
   public renderSharePage() {
-    return;
+    return { link: `${this.configService.get('API')}/subscribers`};
   }
 }
