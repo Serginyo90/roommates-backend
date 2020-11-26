@@ -110,6 +110,11 @@ function ProductCTA(props) {
                       setOpen(true);
                       resetForm({ values: { email: '' }});
                     }
+                  })
+                  .catch((error) => {
+                    setSubmitting(false);
+                    console.error('__error__', error);
+                    return false;
                   });
               }}
             >
