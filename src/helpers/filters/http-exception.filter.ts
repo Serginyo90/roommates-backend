@@ -7,11 +7,13 @@ export default class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
 
+    console.log('__exception__', exception);
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    console.log('__status__', status);
     // @ts-ignore
     let message = exception.message;
     if (status === HttpStatus.UNAUTHORIZED) {
