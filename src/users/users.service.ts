@@ -54,12 +54,14 @@ export class UsersService {
     if (user.hobbies.length) {
       user.hobbies = await this.hobbiesRepository.findByIds(user.hobbies);
     }
+    const updatedUser = { ...userEntity, ...user };
     try {
-      await this.usersRepository.save({ ...userEntity, ...user });
+      await this.usersRepository.save(updatedUser);
     } catch (e) {
       throw e;
     }
-    return { ...user };
+
+    return await this.usersRepository.findOne(user.id, { relations: ['hobbies', 'country', 'state', 'city']});
   }
 
   async updatePassword(user, newPassword) {
