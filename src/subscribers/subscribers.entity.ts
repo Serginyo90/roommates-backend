@@ -11,9 +11,9 @@ export class Subscribers {
   })
   isActive: boolean;
 
-  @CreateDateColumn({ type: 'datetime', default: new Date() })
+  @CreateDateColumn({ type: 'datetime' })
   createdAt: string;
 
-  @UpdateDateColumn({ type: 'datetime', default: new Date() })
+  @UpdateDateColumn({ type: 'datetime' })
   updatedAt: string;
 }
