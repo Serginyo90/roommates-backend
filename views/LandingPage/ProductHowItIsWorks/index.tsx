@@ -105,7 +105,7 @@ function ProductHowItWorks(props) {
                 />
                 <Typography variant='h5' align='center'>
                   Вы с легкостью сможете найти соседа по команте,
-                  указав город в котором ищите и его увлечения.
+                  указав город и его увлечения.
                 </Typography>
               </div>
             </Grid>

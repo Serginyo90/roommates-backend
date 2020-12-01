@@ -40,7 +40,7 @@ function ProductHero(props) {
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/bc.jpg' alt='increase priority' />
       <Typography color='inherit' align='center' variant='h2'>
-        Найди соседей по команте за 5 минут
+        Найди соседей по комнате за 5 минут
       </Typography>
       <Typography color='inherit' align='center' variant='h5' className={classes.h5}>
         Важно найти тех с кем комфортно

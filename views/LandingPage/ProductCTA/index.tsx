@@ -130,7 +130,7 @@ function ProductCTA(props) {
                     Подписаться
                   </Typography>
                   <Typography variant='h5'>
-                    Мы не отсылаем спам.
+                    Мы не отправляем спам.
                     Мы рассылаем подсказки и новые обновления нашего сервиса
                   </Typography>
                   <TextField
