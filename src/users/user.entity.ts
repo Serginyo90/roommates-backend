@@ -165,6 +165,9 @@ export class User {
   })
   status: UserStatus;
 
+  @Column({ type: 'date'})
+  birthday: string;
+
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
 
