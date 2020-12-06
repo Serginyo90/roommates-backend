@@ -29,6 +29,11 @@ export enum UserGender {
   CUSTOM = 'custom',
 }
 
+export enum UserStatus {
+  SEARCHING = 'searching',
+  LIVING = 'living',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -152,6 +157,13 @@ export class User {
     default: false,
   })
   allowExtraEmails: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserStatus,
+    default: UserStatus.SEARCHING,
+  })
+  status: UserStatus;
 
   @CreateDateColumn({ type: 'datetime'})
   createdAt: string;
