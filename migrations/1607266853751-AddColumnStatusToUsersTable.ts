@@ -10,7 +10,7 @@ export class AddColumnStatusToUsersTableTable1606378165981 implements MigrationI
             name: column,
             type: 'enum',
             enum: ['searching', 'living'],
-            default: 'searching',
+            isNullable: false,
         }));
     }
 
