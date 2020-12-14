@@ -8,8 +8,9 @@ export class CreateConversationDto {
   readonly messages: Message[];
   readonly creator: User;
   readonly users: User[];
-  readonly createdAt: string;
-  readonly updatedAt: string;
+  readonly lastViewedTime: Date;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
 }
 
 export class SendMessageDto {

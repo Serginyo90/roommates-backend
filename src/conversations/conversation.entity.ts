@@ -32,9 +32,12 @@ export class Conversation {
   @ManyToMany(() => User, user => user.conversations, { nullable: false })
   users: User[];
 
+  @Column({ type: 'datetime'})
+  lastViewedTime: Date;
+
   @CreateDateColumn({ type: 'datetime'})
-  createdAt: string;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'datetime'})
-  updatedAt: string;
+  updatedAt: Date;
 }

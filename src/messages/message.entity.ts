@@ -18,6 +18,11 @@ export class Message {
   @Column()
   text: string;
 
+  @Column({
+    nullable: false,
+  })
+  userId: number;
+
   @ManyToOne(() => User, user => user.messages, { nullable: false })
   user: User;
 
@@ -25,8 +30,8 @@ export class Message {
   conversation: Conversation;
 
   @CreateDateColumn({ type: 'datetime'})
-  createdAt: string;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'datetime'})
-  updatedAt: string;
+  updatedAt: Date;
 }

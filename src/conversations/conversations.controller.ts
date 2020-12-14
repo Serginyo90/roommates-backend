@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Post, UseGuards, Request, Param, ParseIntPipe, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  UseGuards,
+  Request,
+  Param,
+  ParseIntPipe,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { CreateConversationDto, SendMessageDto } from './conversations.dto';
@@ -28,5 +40,12 @@ export class ConversationsController {
     @Param('companionId', new ParseIntPipe()) companionId: number,
   ) {
     return await this.conversationsService.sendMessage(req.user, sendMessageDto.message, companionId);
+  }
+
+  @Put(':conversationId/reset')
+  async resetCounterForConversation(
+    @Param('conversationId', new ParseIntPipe()) conversationId: number,
+  ) {
+    return await this.conversationsService.resetCounterForConversation(conversationId);
   }
 }

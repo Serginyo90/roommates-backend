@@ -30,7 +30,17 @@ export class ConversationsService {
       .leftJoinAndMapOne('messages.user', 'messages.user', 'user')
       .where({ id: userId })
       .getOne();
-    return user.conversations;
+
+    return user.conversations.map((conversation: Conversation) => {
+      const unreadMessages = conversation.messages.reduce((acc: number, message: Message) => {
+        if (conversation.lastViewedTime < message.createdAt && userId !== message.userId) {
+          acc = acc + 1;
+        }
+        return acc;
+      }, 0);
+      console.log('__unreadMessages__', unreadMessages);
+      return { ...conversation, unreadMessages };
+    });
   }
 
   async sendMessage(user, message, companionId) {
@@ -60,5 +70,13 @@ export class ConversationsService {
     }
     await this.conversationsRepository.save(conversationEntity);
     return conversationEntity;
+  }
+
+  async resetCounterForConversation(conversationId) {
+    const conversation = await this.conversationsRepository.findOne({ id: conversationId });
+
+    conversation.lastViewedTime = new Date();
+    await this.conversationsRepository.save(conversation);
+    return conversationId;
   }
 }
