@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   UseGuards,
   Request,
   Param,
@@ -42,10 +41,10 @@ export class ConversationsController {
     return await this.conversationsService.sendMessage(req.user, sendMessageDto.message, companionId);
   }
 
-  @Put(':conversationId/reset')
-  async resetCounterForConversation(
+  @Get(':conversationId')
+  getConversationMessagesById(
     @Param('conversationId', new ParseIntPipe()) conversationId: number,
-  ) {
-    return await this.conversationsService.resetCounterForConversation(conversationId);
+  ): Promise<Conversation> {
+    return this.conversationsService.findOneById(conversationId);
   }
 }

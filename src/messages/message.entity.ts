@@ -23,6 +23,11 @@ export class Message {
   })
   userId: number;
 
+  @Column({
+    nullable: false,
+  })
+  conversationId: number;
+
   @ManyToOne(() => User, user => user.messages, { nullable: false })
   user: User;
 

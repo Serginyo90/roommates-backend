@@ -79,4 +79,11 @@ export class ConversationsService {
     await this.conversationsRepository.save(conversation);
     return conversationId;
   }
+
+  async findOneById(conversationId: number) {
+    await this.resetCounterForConversation(conversationId);
+    return await this.conversationsRepository.findOneOrFail(conversationId, {
+      relations: ['messages'],
+    });
+  }
 }
