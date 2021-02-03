@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
 
 const styles = (theme: any) => ({
   root: {
@@ -30,16 +31,16 @@ const styles = (theme: any) => ({
 
 function ProductSmokingHero(props) {
   const { classes } = props;
-
+  const { t } = useTranslation();
   return (
     <Container className={classes.root} component='section'>
       <Button className={classes.button} component='a' href='mailto:support@findmyroommates.com' >
         <Typography variant='h4' component='span'>
-          Есть вопросы или предложения?
+          {t('phrases:Do you have questions or suggestions?')}
         </Typography>
       </Button>
       <Typography variant='subtitle1' className={classes.link}>
-        Можете отправить нам электронное письмо
+        {t('phrases:Do you have questions or suggestions?')}
       </Typography>
       <img src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/producBuoy.svg' className={classes.buoy} alt='buoy' />
     </Container>

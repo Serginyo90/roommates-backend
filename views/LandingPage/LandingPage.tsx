@@ -7,9 +7,11 @@ import ProductWhyWe from './ProductWhyWe';
 import ProductCTA from './ProductCTA';
 import ProductSmokingHero from './ProductSmokingHero';
 import AppFooter from './AppFooter';
+import SelectForLanguage from '../common/SelectForLanguage';
 
 const LandingPage = ({ link }) => (
   <div>
+    <SelectForLanguage />
     <ProductHero/>
     <ProductValues/>
     <ProductWhyWe />

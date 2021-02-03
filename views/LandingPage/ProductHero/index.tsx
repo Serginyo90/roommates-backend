@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -34,16 +35,16 @@ const styles = (theme) => ({
 
 function ProductHero(props) {
   const { classes } = props;
-
+  const { t } = useTranslation();
   return (
     <ProductHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
-      <img style={{ display: 'none' }} src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/bc.jpg' alt='increase priority' />
+      <img style={{ display: 'none' }} src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/bc.jpg' alt='increase priority'/>
       <Typography color='inherit' align='center' variant='h2'>
-        Найди соседей по комнате за 5 минут
+        {t('head:description')}
       </Typography>
       <Typography color='inherit' align='center' variant='h5' className={classes.h5}>
-        Важно найти тех с кем комфортно
+        {t('phrases:Important to find comfortable person')}
       </Typography>
       <LinkUI variant='body2'>
         <Button
@@ -54,12 +55,12 @@ function ProductHero(props) {
           component='a'
           href='/sign-up'
         >
-          Зарегистрироваться
+          {t('common:Sign Up')}
         </Button>
       </LinkUI>
       <Typography variant='body2' color='secondary' className={classes.more}>
         <LinkUI variant='body2' style={{ color: '#ffffff', cursor: 'pointer' }} href='/login'>
-          У меня уже есть аккаунт
+          {t('common:I already have account')}
         </LinkUI>
       </Typography>
     </ProductHeroLayout>

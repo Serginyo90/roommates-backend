@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -54,7 +55,7 @@ const styles = (theme) => ({
 
 function ProductHowItWorks(props) {
   const { classes } = props;
-
+  const { t } = useTranslation();
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
@@ -64,7 +65,7 @@ function ProductHowItWorks(props) {
           alt='curvy lines'
         />
         <Typography variant='h4' className={classes.title} component='h2'>
-          Как это работает?
+          {t('phrases:How does it work?')}
         </Typography>
         <div>
           <Grid container spacing={5}>
@@ -77,7 +78,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  Нужно зарегистрироваться и указать настоящие Ваши увлечения и город.
+                  {t('phrases:Needs to Sign Up and provide yours real hobbies and own town')}
                 </Typography>
               </div>
             </Grid>
@@ -90,8 +91,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  Указать настоящие увлечения или хобби это очень важно.
-                  Так как по ним Вас будут искать другие люди.
+                  {t('phrases:It is very important to indicate your real interests or hobbies')}
                 </Typography>
               </div>
             </Grid>
@@ -104,8 +104,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  Вы с легкостью сможете найти соседа по команте,
-                  указав город и его увлечения.
+                  {t('phrases:You have ability to find roommate by city and by hobbies')}
                 </Typography>
               </div>
             </Grid>
@@ -118,7 +117,7 @@ function ProductHowItWorks(props) {
           className={classes.button}
           href='/sign-up'
         >
-          Начать
+          {t('common:Begin')}
         </Button>
       </Container>
     </section>

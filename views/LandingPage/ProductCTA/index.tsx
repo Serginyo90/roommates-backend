@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, ErrorMessage } from 'formik';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -73,6 +74,9 @@ function ProductCTA(props) {
     setOpen(false);
   };
 
+  const { t } = useTranslation();
+  const messageRequired = t('errors:Required field');
+  const messageInvalidFormat = t('errors:Incorrect email format');
   return (
     <Container className={classes.root} component='section'>
       <Grid container>
@@ -83,11 +87,11 @@ function ProductCTA(props) {
               validate={values => {
                 const errors = {} as any;
                 if (!values.email) {
-                  errors.email = 'Обязательное поле';
+                  errors.email = messageRequired;
                 } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                 ) {
-                  errors.email = 'Некорректный формат электронной почты';
+                  errors.email = messageInvalidFormat;
                 }
                 return errors;
               }}
@@ -127,15 +131,14 @@ function ProductCTA(props) {
                 }) => (
                 <Form onSubmit={handleSubmit} className={classes.cardContent}>
                   <Typography variant='h2' component='h2' gutterBottom>
-                    Подписаться
+                    {t('common:Subscribe')}
                   </Typography>
                   <Typography variant='h5'>
-                    Мы не отправляем спам.
-                    Мы рассылаем подсказки и новые обновления нашего сервиса
+                    {t('phrases:We don\'t send spam')}
                   </Typography>
                   <TextField
                     className={classes.textField}
-                    placeholder='Электронная почта'
+                    placeholder={t('common:Email')}
                     type='email'
                     name='email'
                     onChange={handleChange}
@@ -150,7 +153,7 @@ function ProductCTA(props) {
                     className={classes.button}
                     disabled={!isValid || isSubmitting}
                   >
-                    Держите меня в курсе
+                    {t('phrases:Keep me informed')}
                   </Button>
                 </Form>
               )}
@@ -171,7 +174,7 @@ function ProductCTA(props) {
       <Snackbar
         open={open}
         onClose={handleClose}
-        message='Мы будем слать Вам только полезные письма'
+        message={t('phrases:We will send only useful emails to you')}
       />
     </Container>
   );

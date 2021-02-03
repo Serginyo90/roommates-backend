@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -39,7 +40,7 @@ const styles = (theme) => ({
 
 function ProductValues(props) {
   const { classes } = props;
-
+  const { t } = useTranslation();
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
@@ -57,12 +58,10 @@ function ProductValues(props) {
                 alt='suitcase'
               />
               <Typography variant='h6' className={classes.title}>
-                КОМФОРТНО ЖИТЬ ВМЕСТЕ
+                {t('phrases:Leave together with comfort').toUpperCase()}
               </Typography>
               <Typography variant='h5'>
-                Мы все такие разные, и найти с кем комфортно жить достаточно сложно.
-                Наш сервис приложет максимум усилий, чтобы вы нашли человека,
-                с которым будет весело и комфортно.
+                {t('phrases:We are all so different')}
               </Typography>
             </div>
           </Grid>
@@ -74,10 +73,10 @@ function ProductValues(props) {
                 alt='clock'
               />
               <Typography variant='h6' className={classes.title}>
-                АБСОЛЮТНО БЕСПЛАТНО
+                {t('phrases:Absolutely free').toUpperCase()}
               </Typography>
               <Typography variant='h5'>
-                Вы не должны ни за что платить и у нас нет никаких скрытых платежей.
+                {t('phrases:You don\'t have to pay for anything and we have no hidden fees')}
               </Typography>
             </div>
           </Grid>
@@ -89,11 +88,10 @@ function ProductValues(props) {
                 alt='graph'
               />
               <Typography variant='h6' className={classes.title}>
-                НОВЫЙ ОПЫТ БЕСЦЕНЕН
+                {t('phrases:New experience priceless').toUpperCase()}
               </Typography>
               <Typography variant='h5'>
-                Если вы ни разу не снимали ни с кем жилье, то наш сервис это
-                отличный шанс попробовать найти кого-то по интересам и увлечениям.
+                {t('phrases:If you have never rented a house with anyone')}
               </Typography>
             </div>
           </Grid>
