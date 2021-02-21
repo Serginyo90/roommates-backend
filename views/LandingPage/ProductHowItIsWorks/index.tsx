@@ -71,40 +71,40 @@ function ProductHowItWorks(props) {
           <Grid container spacing={5}>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>1.</div>
+                <div className={classes.number}>1. {t('common:Registration')}</div>
                 <img
                   src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/productHowItWorks1.svg'
                   alt='suitcase'
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  {t('phrases:Needs to Sign Up and provide yours real hobbies and own town')}
+                  {t('phrases:Fill in your personal information, specify the city and hobbies')}
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>2.</div>
+                <div className={classes.number}>2. {t('common:Waiting')}</div>
                 <img
                   src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/productHowItWorks2.svg'
                   alt='graph'
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  {t('phrases:It is very important to indicate your real interests or hobbies')}
+                  {t('phrases:Future friends will look for you according to the criteria you specified')}
                 </Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
               <div className={classes.item}>
-                <div className={classes.number}>3.</div>
+                <div className={classes.number}>3. {t('common:Search')}</div>
                 <img
                   src='https://findmyroommates-images.s3.eu-central-1.amazonaws.com/productHowItWorks3.svg'
                   alt='clock'
                   className={classes.image}
                 />
                 <Typography variant='h5' align='center'>
-                  {t('phrases:You have ability to find roommate by city and by hobbies')}
+                  {t('phrases:You can take the initiative and find roommates of interest on your own')}
                 </Typography>
               </div>
             </Grid>

@@ -15,9 +15,9 @@ const locales = {
     phrases: {
       'Important to find comfortable person': 'Important to find comfortable person',
       'How does it work?': 'How does it work?',
-      'Needs to Sign Up and provide yours real hobbies and own town': 'Needs to Sign Up and provide yours real hobbies and own town',
-      'You have ability to find roommate by city and by hobbies': 'You have ability to find roommate by city and by hobbies',
-      'It is very important to indicate your real interests or hobbies': 'It is very important to indicate your real interests or hobbies. People will look for you by them',
+      'Fill in your personal information, specify the city and hobbies': 'Fill in your personal information, specify the city and hobbies',
+      'You can take the initiative and find roommates of interest on your own': 'You can take the initiative and find roommates of interest on your own',
+      'Future friends will look for you according to the criteria you specified': 'Future friends will look for you according to the criteria you specified',
       'Do you have questions or suggestions?': 'Do you have questions or suggestions?',
       'You can to send email to us': 'You can to send email to us',
       'Leave together with comfort': 'Leave together with comfort',
@@ -37,6 +37,9 @@ const locales = {
       'Begin': 'Begin',
       'Subscribe': 'Subscribe',
       'Email': 'Email',
+      'Registration': 'Registration',
+      'Waiting': 'Waiting',
+      'Search': 'Search',
     },
     hobbies: {
       'Diving': 'Diving',
@@ -65,10 +68,10 @@ const locales = {
     phrases: {
       'Important to find comfortable person': 'Важно найти тех с кем комфортно',
       'How does it work?': 'Как это работает?',
-      'Needs to Sign Up and provide yours real hobbies and own town': 'Нужно зарегистрироваться и указать настоящие Ваши увлечения и город',
-      'You have ability to find roommate by city and by hobbies': 'Вы с легкостью сможете найти соседа по команте указав город и его увлечения',
-      'It is very important to indicate your real interests or hobbies':
-        'Указать настоящие увлечения или хобби это очень важно. Так как по ним Вас будут искать другие люди',
+      'Fill in your personal information, specify the city and hobbies': 'Заполните личные данные, укажите город и увлечения',
+      'You can take the initiative and find roommates of interest on your own': 'Вы можете проявить инициативу и самостоятельно найти соседей по интересам',
+      'Future friends will look for you according to the criteria you specified':
+        'Будущие друзья будут искать Вас по указанным Вами критериям',
       'Do you have questions or suggestions?': 'Есть вопросы или предложения?',
       'You can to send email to us': 'Можете отправить нам электронное письмо',
       'Leave together with comfort': 'Комфортно жить вместе',
@@ -88,6 +91,9 @@ const locales = {
       'Begin': 'Начать',
       'Subscribe': 'Подписаться',
       'Email': 'Электронная почта',
+      'Registration': 'Регистрация',
+      'Waiting': 'Ожидание',
+      'Search': 'Поиск',
     },
     hobbies: {
       'Diving': 'Подводного плавания',

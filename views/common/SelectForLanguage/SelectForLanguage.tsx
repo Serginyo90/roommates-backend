@@ -46,6 +46,7 @@ const SelectForLanguage = ({ classes }) => {
           { value: 'en', label: t('languages:en') },
           { value: 'ru', label: t('languages:ru') },
         ]}
+        getLabel={option => t(`languages:${(option && option.value)}`)}
       />
     </div>
   );
